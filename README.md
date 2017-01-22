@@ -87,9 +87,9 @@ When the training process is done, the simulation can be launched using the comm
 
 Different network architectures are available:
 
-1. NVIDIA (based on NVIDIA (paper)[http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf])
-2. Custom (based on NVIDIA, changing image sizes and a few other parameters)
-3. Carputer (based on https://github.com/otaviogood/carputer)
+1. NVIDIA: based on [NVIDIA paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf)
+2. Custom: based on NVIDIA, changing image sizes and a few other parameters.
+3. Carputer: based on [Carputer](https://github.com/otaviogood/carputer)
 
 ***
 
