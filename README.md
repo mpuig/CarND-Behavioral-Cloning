@@ -2,9 +2,7 @@
 
 ### Overview
 
-#### The Udacity simulator
-
-Udacity has created a driving simulator based on the Unity Engine that uses real game physics to create a close approximation to real driving.
+The goal of this project is to teach a Convolutional Neural Network (CNN) to drive a car in a simulator provided by Udacity, based on the Unity Engine, that uses real game physics to create a close approximation ro real driving. The simulator provices images from three cameras in the car, that provide images, and the steering angle, speed, throttle and brake.
 
 ![The Self-Driving Car Simulator](https://raw.githubusercontent.com/mpuig/CarND-Behavioral-Cloning/master/_static/simulator.png)
 
@@ -32,7 +30,7 @@ If everything went correctly, we should see the following in the directory we se
 
 Now that we have training data, it's time to build and train a neural network!
 
-We'll use Keras to train a network to do the following:
+We'll use [Keras](http://keras.io) to train a network to do the following:
 
 1. Take in an image from the center camera of the car as input to our neural network.
 2. Output a new steering angle for the car.
@@ -68,7 +66,7 @@ Another transformation we use is to flip images randomly, and change the sign of
 
 ***
 
-### The process
+### The project
 
 To do the project, I created a python package called `model` that wraps all the model functionallities, and allows to use different network architectures easily. A jupyther notebook called `Data Exploration & Tests` is used to test the package functions,  to visualize the results, and to execute the training processes. For example, to train the Nvidia model, it's three lines of code:
 
@@ -86,13 +84,60 @@ When the training process is done, the simulation can be launched using the comm
    python drive.py ./out/filename.json
 ```
 
-Different network architectures are available:
+Different network architectures has been implemented:
 
 1. NVIDIA: based on [NVIDIA paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf)
 2. Custom: based on NVIDIA, changing image sizes and a few other parameters.
 3. Carputer: based on [Carputer](https://github.com/otaviogood/carputer)
 
-***
+### Run
+
+1. [Download the sample dataset for track 1](https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip).
+
+2. Clone the project and install the required packages (based on Anaconda).
+
+
+  ```
+     git clone https://github.com/mpuig/CarND-Behavioral-Cloning
+     cd CarND-Behavioral-Cloning
+     conda env create -f environment.yml
+     source activate CarND-Behavioral-Cloning
+  ```
+
+3. Install Tensorflow following the instructions from this link https://www.tensorflow.org/get_started/os_setup
+
+
+  ```
+     export PIP_REQUIRE_VIRTUALENV=false
+     export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-0.12.1-py3-none-any.whl
+     pip install --ignore-installed --upgrade $TF_BINARY_URL
+  ```
+
+4. Install Keras
+
+
+  ```
+     pip install keras
+  ```
+
+5. Launch the jupyter notebook
+
+
+  ```
+     jupyter notebook CarND-Behavioral-Cloning.ipynb
+  ```
+
+6. Go to  http://localhost:8888/notebooks/Data%20Exploration%20%26%20Tests.ipynb in your browser and run all the cells. Everything should execute without error.
+
+  After several tests, the best results are obtained using the NVIDIA architecture.
+
+7. Run autonomous driving in the simulator using the command:
+
+
+  ```
+     python drive.py ./out/model_nvidia_09-0.03.json
+  ```
+
 
 ### Dependencies
 
@@ -106,46 +151,3 @@ This project requires **Python 3.5** and the following Python libraries installe
 - [Keras](http://keras.io)
 - [Matplotlib](http://matplotlib.org/)
 - [Pandas](http://pandas.pydata.org/) (Optional)
-
-***
-
-### Run
-
-1. [Download the sample dataset for track 1](https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip).
-
-2. Clone the project and install the required packages (based on Anaconda).
-```
-   git clone https://github.com/mpuig/CarND-Behavioral-Cloning
-   cd CarND-Behavioral-Cloning
-   conda env create -f environment.yml
-   source activate CarND-Behavioral-Cloning
-```
-
-3. Install Tensorflow following the instructions from this link https://www.tensorflow.org/get_started/os_setup
-
-```
-   export PIP_REQUIRE_VIRTUALENV=false
-   export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-0.12.1-py3-none-any.whl
-   pip install --ignore-installed --upgrade $TF_BINARY_URL
-```
-
-4. Install Keras
-
-```
-   pip install keras
-```
-
-5. Launch the jupyter notebook
-```
-   jupyter notebook CarND-Behavioral-Cloning.ipynb
-```
-
-6. Go to  http://localhost:8888/notebooks/Data%20Exploration%20%26%20Tests.ipynb in your browser and run all the cells. Everything should execute without error.
-
-After several tests, the best results are obtained using the NVIDIA architecture. 
-
-7. Run autonomous driving in the simulator using the command:
-
-```
-   python drive.py ./out/model_nvidia_09-0.03.json
-```
