@@ -1,0 +1,18 @@
+name: CarND-Behavioral-Cloning
+dependencies:
+- python=3.5
+- pip >= 9
+- jupyter
+- matplotlib
+- numpy
+- scipy
+- scikit-learn
+- pandas
+- h5py
+- pillow
+- menpo::opencv3
+- flask
+- pip:
+  - eventlet
+  - gevent_socketio
+  - flask-socketio
