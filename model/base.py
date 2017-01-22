@@ -14,7 +14,7 @@ import math
 import cv2
 import pandas as pd
 import numpy as np
-from numpy.random import randint
+from random import choice
 
 from keras import callbacks
 
@@ -65,16 +65,7 @@ class SteeringSimulatorBase(object):
     def __init__(self):
         filename = 'data/driving_log.csv'
         self.df = pd.read_csv(filename)
-        self.reduce_zeros()
         self.build_model()
-
-    def reduce_zeros(self):
-        """ reduce the number of rows with steering angle zero"""
-        zero = self.df[self.df.steering == 0]
-        msk = np.random.rand(len(zero)) < 0.1
-        zero = zero[msk]
-        nonzero = self.df[self.df.steering != 0]
-        self.df = zero.append(nonzero, ignore_index=True)
 
     def build_model(self):
         """
@@ -103,15 +94,13 @@ class SteeringSimulatorBase(object):
         (left, center, right), corrects the steering angle, and
         applies augmentations.
         """
-        options = [
+        img_path, y_steer = choice([
             [row.left.strip(), row.steering + .25],
             [row.center.strip(), row.steering],
             [row.right.strip(), row.steering - .25]
-        ]
-        img_path, y_steer = options[randint(len(options))]
+        ])
         img = load_image(img_path)
-        # apply augmentations
-        img, y_steer, tr_x = translate_image(img, y_steer, 50)
+        img, y_steer = translate_image(img, y_steer, 60)
         img, y_steer = bool_flip_image(img, y_steer)
         img = change_image_brightness(img)
         img = self.preprocess_image(img)
@@ -165,10 +154,6 @@ class SteeringSimulatorBase(object):
         # so the data doesn't mantains the order it was collected
         train_df, validation_df = train_test_split(self.df, test_size=0.2, random_state=12897)
 
-        # initialize validation values
-        idx_best = 0
-        val_best = 10000
-
         print("Training model:{}, image size({}, {})".format(self.name, self.n_rows, self.n_cols))
         print(self.model.summary())
 
@@ -177,7 +162,7 @@ class SteeringSimulatorBase(object):
             os.makedirs(BASEDIR)
 
         # Save the model as json after each epoch.
-        base_name = 'model_' + self.name + '_{epoch:02d}-{val_loss:.2f}'
+        base_name = 'model_' + self.name + '_{epoch:02d}'
         filename = os.path.join(BASEDIR, base_name + '.json')
         save_json = SaveModelToJson(filename, monitor='val_loss', verbose=1)
 

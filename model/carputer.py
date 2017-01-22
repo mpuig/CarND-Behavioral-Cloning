@@ -53,10 +53,3 @@ class CarputerModel(SteeringSimulatorBase):
 
         self.model = model
 
-
-def main():
-    carputer = CarputerModel()
-    carputer.train_model(epochs=5, batch_size=256)
-
-if __name__ == '__main__':
-    main()

@@ -66,7 +66,7 @@ Another transformation we use is to flip images randomly, and change the sign of
 
 ### The project
 
-To do the project, I created a python package [model](https://github.com/mpuig/CarND-Behavioral-Cloning/tree/master/model) which wraps all the model functionallities, and allows to use different network architectures easily. A jupyther notebook [Data Exploration & Tests](https://github.com/mpuig/CarND-Behavioral-Cloning/blob/master/Data%20Exploration%20%26%20Tests.ipynb) is used to test the package functions,  to visualize the results, and to execute the training processes. For example, to train the Nvidia model, it's three lines of code:
+To do the project, I created a python package [model](https://github.com/mpuig/CarND-Behavioral-Cloning/tree/master/model) which wraps all the model functionallities, and allows to use different network architectures easily. A jupyther notebook [Data Exploration & Tests](https://github.com/mpuig/CarND-Behavioral-Cloning/blob/master/CarND-Behavioral-Cloning.ipynb) is used to test the package functions,  to visualize the results, and to execute the training processes. For example, to train the Nvidia model, it's three lines of code:
 
 ```
    from model.nvidia import NvidiaModel
@@ -107,8 +107,14 @@ After several tests, the best results are obtained using the NVIDIA architecture
 
 3. Install Tensorflow following the instructions from this link https://www.tensorflow.org/get_started/os_setup
 
+  ```
+     # Ubuntu/Linux 64-bit, GPU enabled, Python 3.5
+     # Requires CUDA toolkit 8.0 and CuDNN v5. For other versions, see "Installing from sources" below.
+     $ export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp35-cp35m-linux_x86_64.whl
+     pip install --ignore-installed --upgrade $TF_BINARY_URL
 
   ```
+     # Mac OS X, CPU only, Python 3.4 or 3.5:
      export PIP_REQUIRE_VIRTUALENV=false
      export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-0.12.1-py3-none-any.whl
      pip install --ignore-installed --upgrade $TF_BINARY_URL
@@ -128,7 +134,7 @@ After several tests, the best results are obtained using the NVIDIA architecture
      jupyter notebook CarND-Behavioral-Cloning.ipynb
   ```
 
-6. Go to  http://localhost:8888/notebooks/Data%20Exploration%20%26%20Tests.ipynb in your browser and run all the cells. Everything should execute without error.
+6. Go to  http://localhost:8888/notebooks/CarND-Behavioral-Cloning.ipynb in your browser and run all the cells. Everything should execute without error.
 
 
 7. Launch the simulator and run autonomous driving with the command:

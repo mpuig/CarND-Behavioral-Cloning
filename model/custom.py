@@ -76,10 +76,3 @@ class CustomModel(SteeringSimulatorBase):
 
         self.model = model
 
-
-def main():
-    custom = CustomModel()
-    custom.train_model(epochs=1, batch_size=256)
-
-if __name__ == '__main__':
-    main()

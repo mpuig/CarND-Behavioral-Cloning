@@ -45,15 +45,9 @@ class NvidiaModel(SteeringSimulatorBase):
         model.add(Dense(10, activation='elu'))
         model.add(Dense(1))
 
-        adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
-        model.compile(optimizer=adam, loss='mse')
+        #adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
+        #model.compile(optimizer=adam, loss='mse')
+        model.compile(optimizer='adam', loss='mean_squared_error')
 
         self.model = model
 
-
-def main():
-    nvidia = NvidiaModel()
-    nvidia.train_model(epochs=5, batch_size=256)
-
-if __name__ == '__main__':
-    main()

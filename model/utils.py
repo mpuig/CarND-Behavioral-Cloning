@@ -9,7 +9,8 @@ for the Udacity driving simulator.
 """
 import cv2
 import numpy as np
-from numpy.random import uniform, randint
+from numpy.random import uniform
+from random import choice
 
 
 def load_image(filename):
@@ -43,13 +44,13 @@ def translate_image(image, angle, translate_range):
     Random horizontal shifts are applied to simulate lane shifts,
     direction of upto 10 pixels, and applied angle change of .2 per pixel.
     """
-    tr_x = translate_range * uniform() - translate_range / 2
-    new_angle = angle + tr_x / translate_range * 2 * .2
-    tr_y = 10 * uniform() - 10 / 2
+    tr_y = uniform(-5, 5)
+    tr_x = uniform(-translate_range/2., translate_range/2.)
+    y_steer = angle + (tr_x / translate_range) * 2 * .2
     translation_matrix = np.float32([[1, 0, tr_x], [0, 1, tr_y]])
     rows, cols, _ = image.shape
     image = cv2.warpAffine(image, translation_matrix, (cols, rows))
-    return image, new_angle, tr_x
+    return image, y_steer
 
 
 def bool_flip_image(img, angle):
@@ -57,6 +58,7 @@ def bool_flip_image(img, angle):
     Randomly flipped images about the vertical midline
     to simulate driving in the opposite direction.
     """
-    if randint(2) == 0:
-        return cv2.flip(img, 1), -angle
-    return img, angle
+    return choice([
+        [cv2.flip(img, 1), -angle],
+        [img, angle]
+    ])
