@@ -94,16 +94,6 @@ Different network architectures are available:
 
 ***
 
-### The results
-
-After several tests, the best results are obtained using the NVIDIA architecture. To reproduce, use the command:
-
-```
-   python drive.py ./out/model_nvidia_09-0.03.json
-```
-
-***
-
 ### Dependencies
 
 This project requires **Python 3.5** and the following Python libraries installed:
@@ -117,8 +107,9 @@ This project requires **Python 3.5** and the following Python libraries installe
 - [Matplotlib](http://matplotlib.org/)
 - [Pandas](http://pandas.pydata.org/) (Optional)
 
+***
 
-### Dataset
+### Run
 
 1. [Download the sample dataset for track 1](https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip).
 
@@ -150,3 +141,11 @@ This project requires **Python 3.5** and the following Python libraries installe
 ```
 
 6. Go to  http://localhost:8888/notebooks/Data%20Exploration%20%26%20Tests.ipynb in your browser and run all the cells. Everything should execute without error.
+
+After several tests, the best results are obtained using the NVIDIA architecture. 
+
+7. Run autonomous driving in the simulator using the command:
+
+```
+   python drive.py ./out/model_nvidia_09-0.03.json
+```
