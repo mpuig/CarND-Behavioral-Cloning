@@ -7,8 +7,6 @@ The goal of this project is to teach a Convolutional Neural Network (CNN) to dri
 ![The Self-Driving Car Simulator](https://raw.githubusercontent.com/mpuig/CarND-Behavioral-Cloning/master/_static/simulator.png)
 
 
-#### Training mode
-
 When entering the simulator two options are given: Training Mode and Autonomous Mode.
 
 ![Udacity Simulator](https://raw.githubusercontent.com/mpuig/CarND-Behavioral-Cloning/master/_static/entering.png)
@@ -68,7 +66,7 @@ Another transformation we use is to flip images randomly, and change the sign of
 
 ### The project
 
-To do the project, I created a python package called `model` that wraps all the model functionallities, and allows to use different network architectures easily. A jupyther notebook called `Data Exploration & Tests` is used to test the package functions,  to visualize the results, and to execute the training processes. For example, to train the Nvidia model, it's three lines of code:
+To do the project, I created a python package [model](https://github.com/mpuig/CarND-Behavioral-Cloning/tree/master/model) which wraps all the model functionallities, and allows to use different network architectures easily. A jupyther notebook [Data Exploration & Tests](https://github.com/mpuig/CarND-Behavioral-Cloning/blob/master/Data%20Exploration%20%26%20Tests.ipynb) is used to test the package functions,  to visualize the results, and to execute the training processes. For example, to train the Nvidia model, it's three lines of code:
 
 ```
    from model.nvidia import NvidiaModel
@@ -89,6 +87,9 @@ Different network architectures has been implemented:
 1. NVIDIA: based on [NVIDIA paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf)
 2. Custom: based on NVIDIA, changing image sizes and a few other parameters.
 3. Carputer: based on [Carputer](https://github.com/otaviogood/carputer)
+
+After several tests, the best results are obtained using the NVIDIA architecture.
+
 
 ### Run
 
@@ -129,15 +130,15 @@ Different network architectures has been implemented:
 
 6. Go to  http://localhost:8888/notebooks/Data%20Exploration%20%26%20Tests.ipynb in your browser and run all the cells. Everything should execute without error.
 
-  After several tests, the best results are obtained using the NVIDIA architecture.
 
-7. Run autonomous driving in the simulator using the command:
+7. Launch the simulator and run autonomous driving with the command:
 
 
   ```
      python drive.py ./out/model_nvidia_09-0.03.json
   ```
 
+***
 
 ### Dependencies
 
