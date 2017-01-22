@@ -98,7 +98,7 @@ Different network architectures are available:
 
 After several tests, the best results are obtained using the NVIDIA architecture. To reproduce, use the command:
 
-``
+```
    python drive.py ./out/model_nvidia_09-0.03.json
 ```
 
@@ -140,7 +140,9 @@ This project requires **Python 3.5** and the following Python libraries installe
 
 4. Install Keras
 
-```pip install keras```
+```
+   pip install keras
+```
 
 5. Launch the jupyter notebook
 ```
