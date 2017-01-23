@@ -3,7 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-
 # Distribution / packaging
 .Python
 data/
@@ -15,3 +14,6 @@ pip-delete-this-directory.txt
 # virtualenv
 venv/
 ENV/
+
+.ipynb_checkpoints/*
+out/*
