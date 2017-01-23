@@ -49,7 +49,9 @@ class CarputerModel(SteeringSimulatorBase):
         model.add(Activation('linear'))
         model.add(Dropout(0.2))
         model.add(Dense(1))
-        model.compile(optimizer='adam', loss='mean_squared_error')
+
+        adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)
+        model.compile(optimizer=adam, loss='mse')
 
         self.model = model
 

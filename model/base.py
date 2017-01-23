@@ -75,9 +75,9 @@ class SteeringSimulatorBase(object):
 
     def preprocess_image(self, image):
         """
-        Crop the top 1/4 of the image to remove the horizon
+        Crop the top 1/5 of the image to remove the horizon
         and the bottom 25 pixels to remove the car’s hood.
-        We will next rescale the image to a 64X64 square image.
+        We will next rescale the image to a new size, depending on the model
 
         Returns an array.
         """
@@ -85,7 +85,8 @@ class SteeringSimulatorBase(object):
         n_rows = image.shape[0]
         image = image[math.floor(n_rows / 5):n_rows - 25, :, :]
         image = cv2.resize(image, new_size, interpolation=cv2.INTER_AREA)
-        return np.array(image)
+        # return np.array(image)
+        return image
 
     def training_preprocess_image(self, row):
         """
@@ -100,9 +101,9 @@ class SteeringSimulatorBase(object):
             [row.right.strip(), row.steering - .25]
         ])
         img = load_image(img_path)
-        img, y_steer = translate_image(img, y_steer, 60)
+        img, y_steer = translate_image(img, y_steer, 70)
         img, y_steer = bool_flip_image(img, y_steer)
-        img = change_image_brightness(img)
+        img, y_steer = change_image_brightness(img, y_steer)
         img = self.preprocess_image(img)
         return img, y_steer
 
@@ -149,6 +150,7 @@ class SteeringSimulatorBase(object):
         """
         The training function.
         """
+        print('v5')
 
         # Shuffle and split the dataset into Training and Validation Dataframes
         # so the data doesn't mantains the order it was collected
@@ -168,11 +170,12 @@ class SteeringSimulatorBase(object):
 
         # Save the model after each epoch.
         filename = os.path.join(BASEDIR, base_name + '.h5')
-        save_best = callbacks.ModelCheckpoint(filename, monitor='val_loss', verbose=1, mode='min')
+        save_best = callbacks.ModelCheckpoint(filename, monitor='val_loss', verbose=1,
+            mode='min', save_weights_only=True)
 
         self.model.fit_generator(
             self.training_data_generator(train_df, batch_size),
-            samples_per_epoch=batch_size * 50,
+            samples_per_epoch=batch_size * 100,
             nb_epoch=epochs,
             validation_data=self.validation_data_generator(validation_df, batch_size),
             nb_val_samples=len(validation_df),

@@ -20,7 +20,7 @@ def load_image(filename):
     return image
 
 
-def change_image_brightness(image):
+def change_image_brightness(image, angle):
     """
     Changing brightness to simulate day and night conditions.
     We will generate images with different brightness by
@@ -31,7 +31,8 @@ def change_image_brightness(image):
     image = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
     image[:, :, 2] = image[:, :, 2] * uniform(.25, 1.25)
     image = cv2.cvtColor(image, cv2.COLOR_HSV2RGB)
-    return image
+    y_steer = angle + uniform(-.02, .02)
+    return image, y_steer
 
 
 def translate_image(image, angle, translate_range):
@@ -58,7 +59,8 @@ def bool_flip_image(img, angle):
     Randomly flipped images about the vertical midline
     to simulate driving in the opposite direction.
     """
+    y_steer = angle + uniform(-.02, .02)
     return choice([
-        [cv2.flip(img, 1), -angle],
-        [img, angle]
+        [cv2.flip(img, 1), -y_steer],
+        [img, y_steer]
     ])

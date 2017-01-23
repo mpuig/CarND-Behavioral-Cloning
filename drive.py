@@ -22,9 +22,9 @@ import math
 
 def preprocess_image(image):
     """
-    Crop the top 1/4 of the image to remove the horizon
+    Crop the top 1/5 of the image to remove the horizon
     and the bottom 25 pixels to remove the car’s hood.
-    We will next rescale the image to a 64X64 square image
+    We will next rescale the image to a new size, depending on the model
     """
     if model_name == 'nvidia':
         new_size = (220, 66)
@@ -38,7 +38,8 @@ def preprocess_image(image):
     n_rows = image.shape[0]
     image = image[math.floor(n_rows / 5):n_rows - 25, :, :]
     image = cv2.resize(image, new_size, interpolation=cv2.INTER_AREA)
-    return np.array(image)
+    # return np.array(image)
+    return image
 
 
 sio = socketio.Server()
