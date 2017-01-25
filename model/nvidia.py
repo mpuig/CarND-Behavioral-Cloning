@@ -49,4 +49,3 @@ class NvidiaModel(SteeringSimulatorBase):
         model.compile(optimizer=adam, loss='mse')
 
         self.model = model
-

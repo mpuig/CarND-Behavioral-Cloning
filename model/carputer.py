@@ -54,4 +54,3 @@ class CarputerModel(SteeringSimulatorBase):
         model.compile(optimizer=adam, loss='mse')
 
         self.model = model
-
