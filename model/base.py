@@ -180,11 +180,14 @@ class SteeringSimulatorBase(object):
         save_best = callbacks.ModelCheckpoint(filename, monitor='val_loss', verbose=1,
                                               mode='min', save_weights_only=True)
 
+        # stop training if the validation loss doesn't improve for 3 consecutive epochs.
+        early_stop = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=3,
+                                     verbose=0, mode='auto')
         self.model.fit_generator(
             self.training_data_generator(train_df, batch_size),
             samples_per_epoch=batch_size * 250,
             nb_epoch=epochs,
             validation_data=self.validation_data_generator(validation_df, batch_size),
             nb_val_samples=len(validation_df),
-            callbacks=[save_model, save_best]
+            callbacks=[save_model, save_best, early_stop]
         )

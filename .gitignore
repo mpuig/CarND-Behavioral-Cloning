@@ -18,3 +18,4 @@ ENV/
 .ipynb_checkpoints/*
 out/*
 out.*/*
+simulator.app
