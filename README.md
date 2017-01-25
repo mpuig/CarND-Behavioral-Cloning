@@ -110,7 +110,7 @@ The first layer of the network performs image normalization. The convolutional l
 
 The five convolutional layers are followed with three fully connected layers, leading to a final output control value which is the inverse-turning-radius. The fully connected layers are designed to function as a controller for steering.
 
-### Run
+### Running
 
 1. [Download the sample dataset for track 1](https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip).
 
@@ -201,11 +201,13 @@ The five convolutional layers are followed with three fully connected layers, le
      python drive.py ./out/model_nvidia_03.json
   ```
 
+  The model works with the two available tracks in the simulator!
+
 ***
 
 ### Conclusions
 
-This project has been a daily challenge during some weeks. It has forced me to deeply understand some concepts that I vaguely knew about CNN, and it has been a good opportunity to use keras in a real project. The final results are not as good as I wished, but the simulator drives along the road and it doesn't go off :)
+This project has been a daily challenge during some weeks. It has forced me to deeply understand some concepts that I vaguely knew about CNN, and it has been a good opportunity to use keras in a real project. The final results are good, and the simulator drives along the road at the Track 1, and also at the Track 2. Great!
 
 ***
 
