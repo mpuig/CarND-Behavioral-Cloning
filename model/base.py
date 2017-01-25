@@ -46,7 +46,6 @@ class SaveModel(callbacks.Callback):
 
     def on_epoch_end(self, epoch, logs=None):
         logs = logs or {}
-        epoch += 1
         filepath = self.filepath.format(epoch=epoch, **logs)
         with open(filepath, 'w') as f:
             json.dump(self.model.to_json(), f)
@@ -183,7 +182,7 @@ class SteeringSimulatorBase(object):
 
         self.model.fit_generator(
             self.training_data_generator(train_df, batch_size),
-            samples_per_epoch=batch_size * 200,
+            samples_per_epoch=batch_size * 250,
             nb_epoch=epochs,
             validation_data=self.validation_data_generator(validation_df, batch_size),
             nb_val_samples=len(validation_df),
