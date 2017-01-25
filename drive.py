@@ -38,7 +38,6 @@ def preprocess_image(image):
     n_rows = image.shape[0]
     image = image[math.floor(n_rows / 5):n_rows - 25, :, :]
     image = cv2.resize(image, new_size, interpolation=cv2.INTER_AREA)
-    # return np.array(image)
     return image
 
 

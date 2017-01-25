@@ -143,12 +143,51 @@ After a lot of tests, the best results are obtained using the NVIDIA architectur
 
 6. Go to  http://localhost:8888/notebooks/CarND-Behavioral-Cloning.ipynb in your browser and run all the cells. Everything should execute without error.
 
+    The initial results of the training is as follows:
+
+    ```
+    Epoch 1/15
+    50944/51200 [============================>.] - ETA: 1s - loss: 0.0888
+    Epoch 00000: saving model to ./out/model_nvidia_00.json
+    Epoch 00000: saving model to ./out/model_nvidia_00.h5
+    51200/51200 [==============================] - 231s - loss: 0.0886 - val_loss: 0.0176
+    Epoch 2/15
+    50944/51200 [============================>.] - ETA: 1s - loss: 0.0524
+    Epoch 00001: saving model to ./out/model_nvidia_01.json
+    Epoch 00001: saving model to ./out/model_nvidia_01.h5
+    51200/51200 [==============================] - 225s - loss: 0.0524 - val_loss: 0.0180
+    Epoch 3/15
+    50944/51200 [============================>.] - ETA: 1s - loss: 0.0459
+    Epoch 00002: saving model to ./out/model_nvidia_02.json
+    Epoch 00002: saving model to ./out/model_nvidia_02.h5
+    51200/51200 [==============================] - 223s - loss: 0.0460 - val_loss: 0.0186
+    Epoch 4/15
+    50944/51200 [============================>.] - ETA: 1s - loss: 0.0424
+    Epoch 00003: saving model to ./out/model_nvidia_03.json
+    Epoch 00003: saving model to ./out/model_nvidia_03.h5
+    51200/51200 [==============================] - 225s - loss: 0.0424 - val_loss: 0.0184
+    Epoch 5/15
+    50944/51200 [============================>.] - ETA: 1s - loss: 0.0400
+    Epoch 00004: saving model to ./out/model_nvidia_04.json
+    Epoch 00004: saving model to ./out/model_nvidia_04.h5
+    51200/51200 [==============================] - 231s - loss: 0.0400 - val_loss: 0.0193
+    Epoch 6/15
+    50944/51200 [============================>.] - ETA: 1s - loss: 0.0381
+    Epoch 00005: saving model to ./out/model_nvidia_05.json
+    Epoch 00005: saving model to ./out/model_nvidia_05.h5
+    51200/51200 [==============================] - 227s - loss: 0.0380 - val_loss: 0.0204
+
+    [...]
+
+    ```
+
+  Once I tested the generated models, the best result is the one on epoch3 (corresponds to 'model_nvidia_03.json`)
 
 7. Launch the simulator and run autonomous driving with the command:
 
 
   ```
-     python drive.py ./out/model_nvidia_09-0.03.json
+     python drive.py ./out/model_nvidia_03.json
   ```
 
 ***
