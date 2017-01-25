@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 model.base
@@ -10,11 +9,11 @@ for the Udacity driving simulator.
 import json
 import os
 import math
+from random import choice
 
 import cv2
 import pandas as pd
 import numpy as np
-from random import choice
 
 from keras import callbacks
 

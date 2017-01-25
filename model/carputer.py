@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 model.carputer
@@ -32,7 +31,7 @@ class CarputerModel(SteeringSimulatorBase):
 
     def build_model(self):
         """Build the carputer model."""
-        dropout = 0.5
+        dropout = 0.2
 
         input_shape = (self.n_rows, self.n_cols, 3)
         pool_size = (2, 2)
@@ -47,7 +46,7 @@ class CarputerModel(SteeringSimulatorBase):
         model.add(Flatten())
         model.add(Dense(265))
         model.add(Activation('linear'))
-        model.add(Dropout(0.2))
+        model.add(Dropout(dropout))
         model.add(Dense(1))
 
         adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.01)

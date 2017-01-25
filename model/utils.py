@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 model.base
@@ -7,10 +6,11 @@ model.base
 This module contains the base class to build and train models
 for the Udacity driving simulator.
 """
+from random import choice
+
 import cv2
 import numpy as np
 from numpy.random import uniform
-from random import choice
 
 
 def load_image(filename):
