@@ -98,6 +98,17 @@ Using the modular architecture, three different network architectures has been i
 
 After a lot of tests, the best results are obtained using the NVIDIA architecture. In fact, the other models weren't able to finish the simulation.
 
+### The NVIDIA CNN architecture
+
+We train the weights of our network to minimize the mean-squared error between the steering command output by the network, and either the command of the human driver or the adjusted steering command.
+
+The next image shows the network architecture, which consists of 9 layers, including a normalization layer, 5 convolutional layers, and 3 fully connected layers. In the original NVIDIA network, the input image is split into YUV planes and passed to the network. For this project I used RGB.
+
+![NVIDIA CNN architecture](_static/cnn-architecture.png)
+
+The first layer of the network performs image normalization. The convolutional layers are designed to perform feature extraction, and are chosen empirically through a series of experiments that vary layer configurations. Next it uses strided convolutions in the first three convolutional layers with a 2×2 stride and a 5×5 kernel, and a non-strided convolution with a 3×3 kernel size in the final two convolutional layers.
+
+The five convolutional layers are followed with three fully connected layers, leading to a final output control value which is the inverse-turning-radius. The fully connected layers are designed to function as a controller for steering.
 
 ### Run
 
