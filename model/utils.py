@@ -31,8 +31,7 @@ def change_image_brightness(image, angle):
     image = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
     image[:, :, 2] = image[:, :, 2] * uniform(.25, 1.25)
     image = cv2.cvtColor(image, cv2.COLOR_HSV2RGB)
-    y_steer = angle + uniform(-.02, .02)
-    return image, y_steer
+    return image, angle
 
 
 def translate_image(image, angle, translate_range):
@@ -46,8 +45,8 @@ def translate_image(image, angle, translate_range):
     direction of upto 10 pixels, and applied angle change of .2 per pixel.
     """
     tr_y = uniform(-5, 5)
-    tr_x = uniform(-translate_range/2., translate_range/2.)
-    y_steer = angle + (tr_x / translate_range) * 2 * .2
+    tr_x = uniform(-translate_range / 2., translate_range / 2.)
+    y_steer = angle + (tr_x / translate_range) * 2 * .2 + uniform(-.005, .005)
     translation_matrix = np.float32([[1, 0, tr_x], [0, 1, tr_y]])
     rows, cols, _ = image.shape
     image = cv2.warpAffine(image, translation_matrix, (cols, rows))
@@ -59,8 +58,7 @@ def bool_flip_image(img, angle):
     Randomly flipped images about the vertical midline
     to simulate driving in the opposite direction.
     """
-    y_steer = angle + uniform(-.02, .02)
     return choice([
-        [cv2.flip(img, 1), -y_steer],
-        [img, y_steer]
+        [cv2.flip(img, 1), -angle],
+        [img, angle]
     ])

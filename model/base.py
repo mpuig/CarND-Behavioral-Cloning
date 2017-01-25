@@ -26,7 +26,7 @@ from .utils import (load_image, change_image_brightness,
 # pylint: disable=C0103
 
 
-class SaveModelToJson(callbacks.Callback):
+class SaveModel(callbacks.Callback):
     """
     Keras callback to save the json model after every epoch.
     `filepath` can contain named formatting options,
@@ -38,17 +38,22 @@ class SaveModelToJson(callbacks.Callback):
     # Arguments
         filepath: string, path to save the model file.
     """
+
     def __init__(self, filepath, monitor='val_loss', verbose=0):
-        super(SaveModelToJson, self).__init__()
+        super(SaveModel, self).__init__()
         self.filepath = filepath
         self.verbose = verbose
         self.monitor = monitor
 
     def on_epoch_end(self, epoch, logs=None):
         logs = logs or {}
+        epoch += 1
         filepath = self.filepath.format(epoch=epoch, **logs)
         with open(filepath, 'w') as f:
             json.dump(self.model.to_json(), f)
+
+        # self.model.save_weights(filepath.replace('.json', '.h5'))
+
         if self.verbose > 0:
             print('\nEpoch %05d: saving model to %s' % (epoch, filepath))
 
@@ -115,8 +120,10 @@ class SteeringSimulatorBase(object):
         while 1:
             X_batch = []
             y_batch = []
-            rows = train_df.sample(batch_size)
-            for _, row in rows.iterrows():
+            #rows = train_df.sample(batch_size)
+            # for _, row in rows.iterrows():
+            for i in range(batch_size):
+                row = train_df.sample().iloc[0]
                 x, y = self.training_preprocess_image(row)
                 X_batch.append(x)
                 y_batch.append(y)
@@ -139,18 +146,20 @@ class SteeringSimulatorBase(object):
         while 1:
             X_batch = []
             y_batch = []
-            rows = valid_df.sample(batch_size)
-            for _, row in rows.iterrows():
+            #rows = valid_df.sample(batch_size)
+            # for _, row in rows.iterrows():
+            for i in range(batch_size):
+                row = valid_df.sample().iloc[0]
                 x = self.validation_preprocess_image(row)
                 X_batch.append(x)
                 y_batch.append(row.steering)
             yield np.array(X_batch), np.array(y_batch)
 
-    def train_model(self, epochs=1, batch_size=256):
+    def train_model(self, epochs=5, batch_size=256):
         """
         The training function.
         """
-        print('v5')
+        print('v6')
 
         # Shuffle and split the dataset into Training and Validation Dataframes
         # so the data doesn't mantains the order it was collected
@@ -166,18 +175,18 @@ class SteeringSimulatorBase(object):
         # Save the model as json after each epoch.
         base_name = 'model_' + self.name + '_{epoch:02d}'
         filename = os.path.join(BASEDIR, base_name + '.json')
-        save_json = SaveModelToJson(filename, monitor='val_loss', verbose=1)
+        save_model = SaveModel(filename, monitor='val_loss', verbose=1)
 
         # Save the model after each epoch.
         filename = os.path.join(BASEDIR, base_name + '.h5')
         save_best = callbacks.ModelCheckpoint(filename, monitor='val_loss', verbose=1,
-            mode='min', save_weights_only=True)
+                                              mode='min', save_weights_only=True)
 
         self.model.fit_generator(
             self.training_data_generator(train_df, batch_size),
-            samples_per_epoch=batch_size * 100,
+            samples_per_epoch=batch_size * 200,
             nb_epoch=epochs,
             validation_data=self.validation_data_generator(validation_df, batch_size),
             nb_val_samples=len(validation_df),
-            callbacks=[save_json, save_best]
+            callbacks=[save_model, save_best]
         )
