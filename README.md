@@ -65,7 +65,7 @@ Another transformation we use is to flip images randomly, and change the sign of
 
 ### The project
 
-To do the project, I created a python package [model](https://github.com/mpuig/CarND-Behavioral-Cloning/tree/master/model) which wraps all the model functionallities, and allows to use different network architectures easily. The jupyther notebook [CarND-Behavioral-Cloning.ipynb](https://github.com/mpuig/CarND-Behavioral-Cloning/blob/master/CarND-Behavioral-Cloning.ipynb) has been used to test the package functions, to visualize the results, and to execute the training processes. For example, to train the Nvidia model, it's three lines of code:
+To do the project, I created a python package [model](https://github.com/mpuig/CarND-Behavioral-Cloning/tree/master/model) which wraps all the model functionallities, and allows to use different network architectures easily. The jupyther notebook [CarND-Behavioral-Cloning.ipynb](CarND-Behavioral-Cloning.ipynb) has been used to test the package functions, to visualize the results, and to execute the training processes. For example, to train the Nvidia model, it's three lines of code:
 
 ```
    from model.nvidia import NvidiaModel
@@ -77,7 +77,7 @@ The `train_model` method, launches the keras training process, and it saves the 
 
 The `fit_generator` uses keras callbacks to save the model files, and to stop the training if the validation loss doesn't improve for 3 consecutive epochs.
 
-To launch the training process, and also to evaluate the step-by-step functions, I've used the python notebook [CarND-Behavioral-Cloning.ipynb](https://github.com/mpuig/CarND-Behavioral-Cloning/blob/master/CarND-Behavioral-Cloning.ipynb). The results can be consulted there.
+To launch the training process, and also to evaluate the step-by-step functions, I've used the python notebook [CarND-Behavioral-Cloning.ipynb](CarND-Behavioral-Cloning.ipynb). The results can be consulted there.
 
 After several tests, the best results has been achived using a `samples_per_epoch` value of batch_size*200 (equivalent to 256*200, by default) and `epochs=15`
 
@@ -171,3 +171,9 @@ This project requires **Python 3.5** and the following Python libraries installe
 - [Keras](http://keras.io)
 - [Matplotlib](http://matplotlib.org/)
 - [Pandas](http://pandas.pydata.org/) (Optional)
+
+***
+
+### Aside notes
+
+I've defined a useful [Makefile](Makefile) to facilitate the AWS management and files syncronization.
