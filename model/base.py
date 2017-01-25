@@ -108,7 +108,7 @@ class SteeringSimulatorBase(object):
         img, y_steer = bool_flip_image(img, y_steer)
         img, y_steer = change_image_brightness(img, y_steer)
         img = self.preprocess_image(img)
-        return img, y_steer
+        return img, y_steer * 1.1
 
     def training_data_generator(self, train_df, batch_size=256):
         """
@@ -157,7 +157,7 @@ class SteeringSimulatorBase(object):
         """
         The training function.
         """
-        print('v6')
+        print('v7')
 
         # Shuffle and split the dataset into Training and Validation Dataframes
         # so the data doesn't mantains the order it was collected
@@ -185,7 +185,7 @@ class SteeringSimulatorBase(object):
                                      verbose=0, mode='auto')
         self.model.fit_generator(
             self.training_data_generator(train_df, batch_size),
-            samples_per_epoch=batch_size * 250,
+            samples_per_epoch=batch_size * 200,
             nb_epoch=epochs,
             validation_data=self.validation_data_generator(validation_df, batch_size),
             nb_val_samples=len(validation_df),

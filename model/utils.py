@@ -46,7 +46,7 @@ def translate_image(image, angle, translate_range):
     """
     tr_y = uniform(-5, 5)
     tr_x = uniform(-translate_range / 2., translate_range / 2.)
-    y_steer = angle + (tr_x / translate_range) * 2 * .2 + uniform(-.005, .005)
+    y_steer = angle + (tr_x / translate_range) * 2 * .2
     translation_matrix = np.float32([[1, 0, tr_x], [0, 1, tr_y]])
     rows, cols, _ = image.shape
     image = cv2.warpAffine(image, translation_matrix, (cols, rows))
