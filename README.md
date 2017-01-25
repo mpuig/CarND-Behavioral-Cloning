@@ -2,7 +2,7 @@
 
 ### Overview
 
-The goal of this project is to teach a Convolutional Neural Network (CNN) to drive a car in a simulator provided by Udacity, based on the Unity Engine, that uses real game physics to create a close approximation ro real driving. The simulator provices images from three cameras in the car, that provide images, and the steering angle, speed, throttle and brake.
+The goal of this project is to teach a Convolutional Neural Network (CNN) to drive a car in a simulator. The simulator is provided by Udacity, it's based on Unity Engine, and uses real game physics to create a close approximation ro real driving.
 
 ![The Self-Driving Car Simulator](https://raw.githubusercontent.com/mpuig/CarND-Behavioral-Cloning/master/_static/simulator.png)
 
@@ -56,7 +56,6 @@ What we'll do is to map recovery paths from each camera. For example, if we trai
 
 In that way, we can simulate our vehicle being in different positions, somewhat further off the center line. To read more about this approach, see this [paper by NVIDIA](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) or this post by [Vivek Yadav](https://chatbotslife.com/using-augmentation-to-mimic-human-driving-496b569760a9#.rk62yvsgs)
 
-
 We also use brightness augmentation, changing the brightness of images to simulate day and night conditions. To do it, we generate images with different brightness by first converting images to HSV, scaling up or down the V channel and converting back to the RGB channel.
 
 Another transformation we use is to flip images randomly, and change the sign of the predicted steering angle, to simulate driving in the opposite direction.
@@ -74,7 +73,14 @@ To do the project, I created a python package [model](https://github.com/mpuig/C
    nvidia.train_model(epochs=5, batch_size=256)
 ```
 
-The `train_model` method, launches the keras training process, and it saves the results of each epoch to the directory `out`, using the pattern `model_{name}_{epoch}-{val_loss}.json` and `model_{name}_{epoch}-{val_loss}.h5`.
+The `train_model` method, launches the keras training process, and it saves the results of each epoch to the directory `out`, using the pattern `model_{name}_{epoch}.json` for the model and `model_{name}_{epoch}.h5` for the weights. The training process uses the keras `fit_generator` method. This method uses a batch-by-batch python generator to generate data. The generator is run in parallel to the model, for efficiency, and it allows to do real-time data augmentation on images on CPU in parallel to training the model on GPU.
+
+The `fit_generator` uses keras callbacks to save the model files, and to stop the training if the validation loss doesn't improve for 3 consecutive epochs.
+
+To launch the training process, and also to evaluate the step-by-step functions, I've used the python notebook [CarND-Behavioral-Cloning.ipynb](https://github.com/mpuig/CarND-Behavioral-Cloning/blob/master/CarND-Behavioral-Cloning.ipynb). The results can be consulted there.
+
+After several tests, the best results has been achived using a `samples_per_epoch` value of batch_size*200 (equivalent to 256*200, by default) and `epochs=15`
+
 
 When the training process is done, the simulation can be launched using the command:
 
@@ -82,13 +88,15 @@ When the training process is done, the simulation can be launched using the comm
    python drive.py ./out/filename.json
 ```
 
-Different network architectures has been implemented:
+The `drive.py` has been adapted to recognize the name of the model from the filename, and depending on the model, it applies a different preprocessing to the images from the simulator.
+
+Using the modular architecture, three different network architectures has been implemented to test how they perform with the simulator:
 
 1. NVIDIA: based on [NVIDIA paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf)
 2. Custom: based on NVIDIA, changing image sizes and a few other parameters.
 3. Carputer: based on [Carputer](https://github.com/otaviogood/carputer)
 
-After several tests, the best results are obtained using the NVIDIA architecture.
+After a lot of tests, the best results are obtained using the NVIDIA architecture. In fact, the other models weren't able to finish the simulation.
 
 
 ### Run
