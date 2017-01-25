@@ -65,7 +65,7 @@ Another transformation we use is to flip images randomly, and change the sign of
 
 ### The project
 
-To do the project, I created a python package [model](https://github.com/mpuig/CarND-Behavioral-Cloning/tree/master/model) which wraps all the model functionallities, and allows to use different network architectures easily. A jupyther notebook [Data Exploration & Tests](https://github.com/mpuig/CarND-Behavioral-Cloning/blob/master/CarND-Behavioral-Cloning.ipynb) is used to test the package functions,  to visualize the results, and to execute the training processes. For example, to train the Nvidia model, it's three lines of code:
+To do the project, I created a python package [model](https://github.com/mpuig/CarND-Behavioral-Cloning/tree/master/model) which wraps all the model functionallities, and allows to use different network architectures easily. The jupyther notebook [CarND-Behavioral-Cloning.ipynb](https://github.com/mpuig/CarND-Behavioral-Cloning/blob/master/CarND-Behavioral-Cloning.ipynb) has been used to test the package functions, to visualize the results, and to execute the training processes. For example, to train the Nvidia model, it's three lines of code:
 
 ```
    from model.nvidia import NvidiaModel
@@ -121,7 +121,6 @@ After a lot of tests, the best results are obtained using the NVIDIA architectur
      $ export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp35-cp35m-linux_x86_64.whl
      pip install --ignore-installed --upgrade $TF_BINARY_URL
 
-  ```
      # Mac OS X, CPU only, Python 3.4 or 3.5:
      export PIP_REQUIRE_VIRTUALENV=false
      export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-0.12.1-py3-none-any.whl
@@ -151,6 +150,12 @@ After a lot of tests, the best results are obtained using the NVIDIA architectur
   ```
      python drive.py ./out/model_nvidia_09-0.03.json
   ```
+
+***
+
+### Conclusions
+
+This project has been a daily challenge during some weeks. It has forced me to deeply understand some concepts that I vaguely knew about CNN, and it has been a good opportunity to use keras in a real project. The final results are not as good as I wished, but the simulator drives along the road and it doesn't go off :)
 
 ***
 
