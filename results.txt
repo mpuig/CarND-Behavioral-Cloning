@@ -1,64 +1,11 @@
-results
-  256*200+angle002 + 15epochs (out.200)
-  - 00: no
-  - 01: no
-  ...
-  - 10: si
-
-
-  256*250+angle002 (out.250)
-  - 00: no
-  - 01: si
-  - 02: no
-  - 03: no
-  - 04: si
-  - 05: no
-
-
-  256*250 (out.250+angle002)
-  - 00: no
-  - 01: no
-  - 02: no
-  - 03: no
-  - 04: no
-  - 05: si (justet)
-  - 06: no
-  - 07: no
-  - 08: si (justet)
-  - 09: no
-
-  256*200 (out.250-noangles)
-  - 00: no
-  - 01: no
-  - 02: (es queda encallat al pont)
-  - 03: no
-  - 04: no
-  - 05: si (a la segona volta surt)
-  - 06: - no n'ha executat més
-  - 07:
-  - 08:
-  - 09:
-  - 10:
-
-  256*250 (out.250+10%)
-  - 00:
-  - 01:
-  - 02:
-  - 03:
-  - 04:
-  - 05:
-  - 06:
-  - 07: si !!!!!! (moltel voltes) (+track2)
 
   256*200+10% (out)
   - 00: no
   - 01: no
-  - 02: si
-  - 03: si (+track2)
-  - 04: si
+  - 02: si (no trak2)
+  - 03: si (+track2) aquest és el bo
+  - 04: si (no track2)
   - 05:
   - 06:
   - 07:
 
-explicar els callbacks de keras utilitzats
-explicar les iteracions i proves amb diferents volums de dades
